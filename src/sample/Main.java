@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -26,7 +28,7 @@ public class Main extends Application {
 
         Connection co = getConnection();
         viewTable(co, "cerberus");
-        updateUserPosition(co, 1, 3, 5);
+//        updateUserPosition(co, 1, 3, 5);
 
         // Grid to set views
         GridPane grid = new GridPane();
@@ -52,6 +54,12 @@ public class Main extends Application {
 
         // OK button
         Button btn = new Button("Send");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                updateUserPosition(co, 1, Float.parseFloat(xBox.getText()), Float.parseFloat(yBox.getText()));
+                btn.setText("Accepted");
+            }
+        });
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
